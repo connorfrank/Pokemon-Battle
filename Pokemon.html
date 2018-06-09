@@ -1,0 +1,156 @@
+<html>
+	<head>
+		<title> Pokemon Battle </title>
+		
+		<style type="text/css">
+			img{
+				height:200px;
+			}
+			div{
+				height:120px;
+				width:400px;
+				border:2px solid black;
+			}
+			button{
+				height:50px;
+				width:200px;
+			}
+		</style>
+		
+		<script type="text/javascript">
+			var dragonHP = 950;
+			var pikaHP = 1500;
+			var attack = "";
+			var pikaAttackPower = 0;
+			var pikaAttackRank = 0;
+			var oppAttack = "";
+			var oppAttackPower = 0;
+			var oppAttackRank = 0;
+			
+			function play(){
+				if(pikaHP > 0 && dragonHP > 0){
+					opponentAttack();
+					if(pikaHP <= 0){
+						document.getElementById("screen").innerHTML += "<p>Pikachu fainted!</p>";
+					}
+					else{
+						pikaAttack();
+						if(dragonHP <= 0){
+							document.getElementById("screen").innerHTML += "<p>Dragonite fainted!</p>";
+						}
+					}
+				}
+			}
+			
+			function opponentAttack(){
+				oppAttackRank = Math.floor((Math.random()*4) + 1);
+				
+				if(oppAttackRank == 1){
+					oppAttackPower = 150;
+					oppAttack = "Hyper Beam";
+				}
+				else if(oppAttackRank == 2){
+					oppAttackPower = 110;
+					oppAttack = "Hurricane";
+				}
+				else if(oppAttackRank == 3){
+					oppAttackPower = 100;
+					oppAttack = "Dragon Rush";
+				}
+				else{
+					oppAttackPower = 60;
+					oppAttack = "Wing Attack";
+				}
+				
+				pikaHP -= oppAttackPower;
+				document.getElementById("pikaHP").innerHTML = "HP " + pikaHP;
+				
+				document.getElementById("screen").innerHTML = "<p>Dragonite used " + oppAttack 
+				+ "! Pikachu lost " + oppAttackPower + "HP.</p>";
+			}
+			
+			function pikaAttack(){
+				if(pikaAttackRank == 1){
+					pikaAttackPower = 190;
+					attack = "Thunderbolt";
+				}
+				else if(pikaAttackRank == 2){
+					pikaAttackPower = 110;
+					attack = "Slam";
+				}
+				else if(pikaAttackRank == 3){
+					pikaAttackPower = 85;
+					attack = "Spark";
+				}
+				else{
+					pikaAttackPower = 70;
+					attack = "Thunder Shock";
+				}
+				
+				dragonHP -= pikaAttackPower;
+				document.getElementById("dragonHP").innerHTML = "HP " + dragonHP;
+				
+				document.getElementById("screen").innerHTML += "<p>Pikachu used " + attack 
+				+ "! Dragonite lost " + pikaAttackPower + "HP.</p>";
+			}
+		</script>
+	</head>
+	<body>
+		<center>
+			<h1> Pokemon Battle: Pikachu vs. Dragonite </h1>
+			
+			<table>
+				<tr>
+					<td>
+						Dragonite
+						<p id="dragonHP">HP 950</p>
+					</td>
+					
+					<td>
+						<img src ="dragonite.png"/>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<img src="pikachu.png"/>
+					</td>
+					
+					<td>
+						Pikachu
+						<p id="pikaHP"> HP 1500 </p>
+					</td>
+				</tr>
+			</table>
+			
+			<div id="screen">
+				<p>
+					What will pikachu do?
+				</p>
+			</div>
+			
+			<table>
+				<tr>
+					<td>
+						<button onclick="pikaAttackRank = 1; play();">Thunderbolt</button>
+					</td>
+					
+					<td>
+						<button onclick="pikaAttackRank = 2; play();">Slam</button>
+					</td>
+				</tr>
+	
+				<tr>
+					<td>
+						<button onclick="pikaAttackRank = 3; play();">Spark</button>
+					</td>
+					
+					<td>
+						<button onclick="pikaAttackRank = 4; play();">Thunder Shock</button>
+					</td>
+				</tr>
+			</table>
+			
+		</center>
+	</body>
+</html>
